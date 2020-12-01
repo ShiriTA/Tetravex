@@ -28,19 +28,19 @@ public class InitBoard implements Board  {
 
     public void initializeBoard() {
 
-        bricks[0][0] = new Brick(randomizeZeroToNine(), randomizeZeroToNine(), randomizeZeroToNine(), randomizeZeroToNine());
+        bricks[0][0] = new Brick(randomizeZeroToNine(), randomizeZeroToNine(), randomizeZeroToNine(), randomizeZeroToNine(), false);
 
         for (int i = 1; i < this.size; i++) {
-            bricks[i][0] = new Brick(randomizeZeroToNine(), randomizeZeroToNine(), bricks[i - 1][0].getDown(), randomizeZeroToNine());
+            bricks[i][0] = new Brick(randomizeZeroToNine(), randomizeZeroToNine(), bricks[i - 1][0].getDown(), randomizeZeroToNine(), false);
         }
 
         for (int j = 1; j < this.size; j++) {
-            bricks[0][j] = new Brick(bricks[0][j - 1].getRight(), randomizeZeroToNine(), randomizeZeroToNine(), randomizeZeroToNine());
+            bricks[0][j] = new Brick(bricks[0][j - 1].getRight(), randomizeZeroToNine(), randomizeZeroToNine(), randomizeZeroToNine(), false);
         }
 
         for (int i = 1; i < this.size; i++) {
             for (int j = 1; j < this.size; j++) {
-                    bricks[i][j] = new Brick(bricks[i][j - 1].getRight(), randomizeZeroToNine(), bricks[i - 1][j].getDown(), randomizeZeroToNine());
+                    bricks[i][j] = new Brick(bricks[i][j - 1].getRight(), randomizeZeroToNine(), bricks[i - 1][j].getDown(), randomizeZeroToNine(), false);
             }
 
         }

@@ -68,6 +68,7 @@ public class Game {
      */
     public boolean ableToMove(Brick b, int i, int j) {
 
+
         if (i == 0 && j == 0) {
             Brick rightBrick = board.getBrick(i, j + 1);
             Brick downBrick = board.getBrick(i + 1, j);
@@ -267,10 +268,10 @@ public class Game {
             return true;
         }
 
-        //srcBoard.setBrick(null, fromI, fromJ);
+        srcBoard.setBrick(null, fromI, fromJ);
         if (ableToMove(brick, toI, toJ)) {
             destBoard.setBrick(brick, toI, toJ);
-            srcBoard.setBrick(null, fromI, fromJ);
+            destBoard.setBrick(brick, toI, toJ);
             return true;
         }
 

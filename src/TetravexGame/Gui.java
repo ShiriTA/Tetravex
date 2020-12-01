@@ -53,6 +53,15 @@ public class Gui extends JFrame {
         this.graphicTetravex.repaint();
     }
 
+    public void paintBlank(int currX, int currY, boolean alive) {
+        this.graphicTetravex.setCurrX(currX);
+        this.graphicTetravex.setCurrY(currY);
+        this.graphicTetravex.setCurrBrick(new Brick(currX, currY, currX + 50, currY + 100, true));
+        this.graphicTetravex.setAlive(alive);
+        add(this.graphicTetravex, BorderLayout.CENTER);
+        this.graphicTetravex.repaint();
+    }
+
     /**
      * Winning the game
      */
@@ -107,12 +116,12 @@ public class Gui extends JFrame {
             this.alive = false;
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
-                    if (e.getX() >= 40 + (50 * i) && e.getX() <= 110 + (50 * i) && e.getY() >= 90 + (50 * j) && e.getY() <= 160 + (50 * j)) {
+                    if (e.getX() >= 50 + (50 * i) && e.getX() <= 100 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
                         this.game.moveBrick(srcBoard, game.getGameBoard(), fromI, fromJ, j, i);
-                        this.gui.paintAgain(50, 100, this.currBrick, alive);
-                    } else if (e.getX() >= graphicTetravex.getSelXLoc() - 10 + (50 * i) && e.getX() <= graphicTetravex.getSelXLoc() + 60 + (50 * i) && e.getY() >= 90 + (50 * j) && e.getY() <= 160 + (50 * j)) {
+                        this.gui.paintAgain(50 + (50 * i), 100 + (50 * j), this.currBrick, alive);
+                    } else if (e.getX() >= graphicTetravex.getSelXLoc() + (50 * i) && e.getX() <= graphicTetravex.getSelXLoc() + 50 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
                         this.game.moveBrick(srcBoard, game.getSelBoard(), fromI, fromJ, j, i);
-                        this.gui.paintAgain(50, 100, this.currBrick, alive);
+                        this.gui.paintAgain(50 + (50 * i), 100 + (50 * j), this.currBrick, alive);
                     }
 
                 }
@@ -132,7 +141,8 @@ public class Gui extends JFrame {
         public void mouseDragged(MouseEvent e) {
             if (currBrick != null) {
                 this.alive = true;
-                this.gui.paintAgain(e.getX() - (e.getX() % 50), e.getY() - (getY() % 100), this.currBrick, alive);
+                this.gui.paintAgain(e.getX() - (e.getX() % 50), e.getY() - (e.getY() % 50), this.currBrick, this.alive);
+
             }
         }
 

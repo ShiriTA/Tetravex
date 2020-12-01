@@ -20,8 +20,8 @@ public class GraphicOpening extends JPanel {
         super.paintComponent(g);
         this.setBackground(Color.white);
 
-        g.setColor(new Color(255, 146, 166));
-        g.fill3DRect(250, 25, 50, 50, true);
+//        g.setColor(new Color(255, 146, 166));
+//        g.fill3DRect(250, 25, 50, 50, true);
 
         g.setColor(new Color(255, 146, 166));
         g.fill3DRect(100, 100, 50, 50, true);
@@ -29,7 +29,6 @@ public class GraphicOpening extends JPanel {
         g.fill3DRect(300, 100, 50, 50, true);
         g.fill3DRect(400, 100, 50, 50, true);
         g.fill3DRect(500, 100, 50, 50, true);
-        g.fill3DRect(600, 100, 50, 50, true);
 
         g.setColor(Color.white);
         g.drawString("2", 125, 125);
@@ -37,6 +36,5 @@ public class GraphicOpening extends JPanel {
         g.drawString("4", 325, 125);
         g.drawString("5", 425, 125);
         g.drawString("6", 525, 125);
-        g.drawString("7", 625, 125);
     }
 }

@@ -199,7 +199,11 @@ public class GraphicTetravex extends JPanel {
      * @param g
      */
     private void paintAlive(Graphics g) {
-
+        if (currBrick.getBlank()) {
+            g.fillRect(this.currX, this.currY,50, 50);
+            g.setColor(Color.MAGENTA);
+            return;
+        }
 
         int middleX = (this.currX + this.currX + 50) / 2;
         int middleY = (this.currY + this.currY + 50) / 2;
