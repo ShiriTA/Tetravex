@@ -1,5 +1,5 @@
 # TetravexGame
-![TetraexPicture](https://github.com/ShiriTA/Tetravex/blob/main/preview/images/TetravexPicture.png?raw=true)
+![TetraexPicture](https://github.com/ShiriTA/Tetravex/blob/main/preview/images/Tetravex.png?raw=true)
 
 
 A puzzle game which its main goal is to fill the board. When you fill the board, you win.

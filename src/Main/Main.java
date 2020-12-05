@@ -4,6 +4,7 @@ import TetravexGame.Gui;
 import TetravexGame.OpeningScreen;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
