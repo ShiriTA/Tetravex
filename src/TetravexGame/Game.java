@@ -271,7 +271,6 @@ public class Game {
         srcBoard.setBrick(null, fromI, fromJ);
         if (ableToMove(brick, toI, toJ)) {
             destBoard.setBrick(brick, toI, toJ);
-            destBoard.setBrick(brick, toI, toJ);
             return true;
         }
 

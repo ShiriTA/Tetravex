@@ -122,6 +122,8 @@ public class Gui extends JFrame {
                     } else if (e.getX() >= graphicTetravex.getSelXLoc() + (50 * i) && e.getX() <= graphicTetravex.getSelXLoc() + 50 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
                         this.game.moveBrick(srcBoard, game.getSelBoard(), fromI, fromJ, j, i);
                         this.gui.paintAgain(50 + (50 * i), 100 + (50 * j), this.currBrick, alive);
+                    } else {
+                        this.gui.paintAgain(fromI, fromJ, this.currBrick, alive);
                     }
 
                 }

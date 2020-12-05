@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Tetravex:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Tetravex_jar</output-path>
+    <root id="archive" name="Tetravex.jar">
+      <element id="module-output" name="Tetravex" />
+    </root>
+  </artifact>
+</component>
