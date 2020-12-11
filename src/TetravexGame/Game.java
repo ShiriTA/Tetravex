@@ -189,7 +189,7 @@ public class Game {
             } else if (leftBrick != null && upBrick != null && downBrick == null) {
                 return b.getLeft() == leftBrick.getRight() && b.getUp() == upBrick.getDown();
             } else if (leftBrick != null && upBrick == null && downBrick != null) {
-                return b.getLeft() == leftBrick.getRight() && b.getDown() == upBrick.getDown();
+                return b.getLeft() == leftBrick.getRight() && b.getDown() == downBrick.getUp();
             } else if (leftBrick == null && upBrick != null && downBrick != null) {
                 return b.getUp() == upBrick.getDown() && b.getDown() == downBrick.getUp();
             } else if (leftBrick != null && upBrick == null && downBrick == null) {
@@ -269,6 +269,7 @@ public class Game {
         }
 
         srcBoard.setBrick(null, fromI, fromJ);
+        System.out.println(fromI);
         if (ableToMove(brick, toI, toJ)) {
             destBoard.setBrick(brick, toI, toJ);
             return true;

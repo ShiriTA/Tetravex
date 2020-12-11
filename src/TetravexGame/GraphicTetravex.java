@@ -223,12 +223,6 @@ public class GraphicTetravex extends JPanel {
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (currBrick.getBlank()) {
-            g2.fillRect(this.currX, this.currY,50, 50);
-            g2.setColor(Color.MAGENTA);
-            return;
-        }
-
         int middleX = (this.currX + this.currX + 50) / 2;
         int middleY = (this.currY + this.currY + 50) / 2;
 
