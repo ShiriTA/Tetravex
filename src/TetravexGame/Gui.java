@@ -7,26 +7,31 @@ import TetravexGame.Board.InitBoard;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Scanner;
 
 public class Gui extends JFrame {
 
     //----------Fields----------
     private Game game;
     private GraphicTetravex graphicTetravex;
+    private OpeningScreen openingScreen;
     private int boardSize;
+    final private int HUNDRED = 100;
+    final private int TWOHUNDRED = 200;
 
 
     //----------Constructor----------
-    public Gui(int boardSize) {
+    public Gui(int boardSize, GraphicOpening graphicOpening, OpeningScreen openingScreen) {
 
         super("Tetravex");
         this.boardSize = boardSize;
+        this.openingScreen = openingScreen;
 
         InitBoard init = new InitBoard(boardSize);
         init.initializeBoard();
         GameBoard gameBoard = new GameBoard(boardSize);
         this.game = new Game(gameBoard, init);
-        this.graphicTetravex = new GraphicTetravex(game, 50, 100, null, false);
+        this.graphicTetravex = new GraphicTetravex(game, HUNDRED, HUNDRED, null, false, graphicOpening.getMode());
         add(graphicTetravex, BorderLayout.CENTER);
 
         HandlerClass handler = new HandlerClass(game, this);
@@ -37,6 +42,9 @@ public class Gui extends JFrame {
 
     //----------Methods----------
 
+    public void setNewOpeningScreen() {
+        this.openingScreen = new OpeningScreen();
+    }
     /**
      * Painting the brick in the updated location
      * @param currX the x where the brick should be painted
@@ -48,15 +56,6 @@ public class Gui extends JFrame {
         this.graphicTetravex.setCurrX(currX);
         this.graphicTetravex.setCurrY(currY);
         this.graphicTetravex.setCurrBrick(currBrick);
-        this.graphicTetravex.setAlive(alive);
-        add(this.graphicTetravex, BorderLayout.CENTER);
-        this.graphicTetravex.repaint();
-    }
-
-    public void paintBlank(int currX, int currY, boolean alive) {
-        this.graphicTetravex.setCurrX(currX);
-        this.graphicTetravex.setCurrY(currY);
-        this.graphicTetravex.setCurrBrick(new Brick(currX, currY, currX + 50, currY + 100, true));
         this.graphicTetravex.setAlive(alive);
         add(this.graphicTetravex, BorderLayout.CENTER);
         this.graphicTetravex.repaint();
@@ -80,6 +79,7 @@ public class Gui extends JFrame {
         private Gui gui;
         private Brick currBrick;
         private boolean alive;
+        private boolean pressed = false;
 
         //----------Constructor----------
         public HandlerClass(Game game, Gui gui) {
@@ -89,23 +89,50 @@ public class Gui extends JFrame {
 
         //----------Methods----------
         @Override
-        public void mouseClicked(MouseEvent e) {}
+        public void mouseClicked(MouseEvent e) {
+            if (e.getX() >= 0 && e.getX() <= 50 && e.getY() >= 0 && e.getY() <= 50) {
+                graphicTetravex.setMode();
+            } else if (e.getX() >= 50 && e.getX() <= 100 && e.getY() >= 0 && e.getY() <= 50) {
+                Object[] options = {"Yes",
+                        "No"};
+                int quit = JOptionPane.showOptionDialog(new JFrame(),
+                        "Are you sure you want to quit to main menu?",
+                        "Quit?",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if (quit != 1) {
+                    this.gui.setVisible(false);
+                    openingScreen.setSize(1500, 1500);
+                    openingScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    openingScreen.setVisible(true);
+
+
+
+                }
+
+            }
+        }
 
 
         @Override
         public void mousePressed(MouseEvent e) {
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
-                    if (e.getX() >= graphicTetravex.getSelXLoc() + (50 * i) && e.getX() <= graphicTetravex.getSelXLoc() + 50 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
+                    if (e.getX() >= graphicTetravex.getSelXLoc() + (HUNDRED * i) && e.getX() <= graphicTetravex.getSelXLoc() + HUNDRED + (HUNDRED * i) && e.getY() >= HUNDRED + (HUNDRED * j) && e.getY() <= TWOHUNDRED + (HUNDRED * j)) {
                         this.srcBoard = this.game.getSelBoard();
                         this.fromI = j;
                         this.fromJ = i;
                         this.currBrick = this.game.getSelBoard().getBrick(j, i);
-                    } else if (e.getX() >= 50 + (50 * i) && e.getX() <= 100 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
+                        this.pressed = true;
+                    } else if (e.getX() >= HUNDRED + (HUNDRED * i) && e.getX() <= TWOHUNDRED + (HUNDRED * i) && e.getY() >= HUNDRED + (HUNDRED * j) && e.getY() <= TWOHUNDRED + (HUNDRED * j)) {
                         this.srcBoard = this.game.getGameBoard();
                         this.fromI = j;
                         this.fromJ = i;
                         this.currBrick = this.game.getGameBoard().getBrick(j, i);
+                        this.pressed = true;
                     }
                 }
             }
@@ -116,12 +143,13 @@ public class Gui extends JFrame {
             this.alive = false;
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
-                    if (e.getX() >= 50 + (50 * i) && e.getX() <= 100 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
+
+                    if (e.getX() >= HUNDRED + (HUNDRED * i) && e.getX() <= TWOHUNDRED + (HUNDRED * i) && e.getY() >= HUNDRED + (HUNDRED * j) && e.getY() <= TWOHUNDRED + (HUNDRED * j)) {
                         this.game.moveBrick(srcBoard, game.getGameBoard(), fromI, fromJ, j, i);
-                        this.gui.paintAgain(50 + (50 * i), 100 + (50 * j), this.currBrick, alive);
-                    } else if (e.getX() >= graphicTetravex.getSelXLoc() + (50 * i) && e.getX() <= graphicTetravex.getSelXLoc() + 50 + (50 * i) && e.getY() >= 100 + (50 * j) && e.getY() <= 150 + (50 * j)) {
+                        this.gui.paintAgain(HUNDRED + (HUNDRED * i), HUNDRED + (HUNDRED * j), this.currBrick, alive);
+                    } else if (e.getX() >= graphicTetravex.getSelXLoc() + (HUNDRED * i) && e.getX() <= graphicTetravex.getSelXLoc() + HUNDRED + (HUNDRED * i) && e.getY() >= HUNDRED + (HUNDRED * j) && e.getY() <= TWOHUNDRED + (HUNDRED * j)) {
                         this.game.moveBrick(srcBoard, game.getSelBoard(), fromI, fromJ, j, i);
-                        this.gui.paintAgain(50 + (50 * i), 100 + (50 * j), this.currBrick, alive);
+                        this.gui.paintAgain(HUNDRED + (HUNDRED * i), HUNDRED + (HUNDRED * j), this.currBrick, alive);
                     } else {
                         this.gui.paintAgain(fromI, fromJ, this.currBrick, alive);
                     }
@@ -131,6 +159,7 @@ public class Gui extends JFrame {
             if (this.game.getGameBoard().isFull()) {
                 win();
             }
+            this.pressed = false;
         }
 
         @Override
@@ -141,9 +170,9 @@ public class Gui extends JFrame {
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if (currBrick != null) {
+            if (currBrick != null && this.pressed) {
                 this.alive = true;
-                this.gui.paintAgain(e.getX() - (e.getX() % 50), e.getY() - (e.getY() % 50), this.currBrick, this.alive);
+                this.gui.paintAgain(e.getX() - (e.getX() % HUNDRED), e.getY() - (e.getY() % HUNDRED), this.currBrick, this.alive);
 
             }
         }

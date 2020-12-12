@@ -5,13 +5,23 @@ import java.awt.*;
 
 public class GraphicOpening extends JPanel {
 
+
     //----------Fields----------
+    private boolean lightMode;
 
     //----------Constructor----------
-    public GraphicOpening () {}
+    public GraphicOpening (boolean lightMode) {
+        this.lightMode = lightMode;
+    }
 
     //----------Methods----------
+    public boolean getMode() {
+        return this.lightMode;
+    }
 
+    public void setMode() {
+        this.lightMode = !this.lightMode;
+    }
     /**
      * Calls the super paint component method. Paints the squares that represent the options of board size.
      * @param g
@@ -19,16 +29,29 @@ public class GraphicOpening extends JPanel {
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g2);
-        this.setBackground(Color.white);
-
-//        g2.setColor(new Color(255, 146, 166));
-//        g2.fill3DRect(250, 25, 50, 50, true);
-
-
 
         g2.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
+        if (this.lightMode) {
+            this.setBackground(Color.white);
+        } else {
+            this.setBackground(Color.darkGray);
+        }
+
+        g2.setColor(new Color(255, 146, 166));
+        g2.fill3DRect(0, 0, 50, 50, true);
+        g2.setColor(Color.white);
+        if (this.lightMode) {
+            g2.drawString("Dark", 10, 20);
+            g2.drawString("Mode", 10, 40);
+        } else {
+            g2.drawString("Light", 10, 20);
+            g2.drawString("Mode", 10, 40);
+        }
+
+
 
         g2.setColor(new Color(255, 146, 166));
         g2.fill3DRect(100, 100, 50, 50, true);
@@ -43,5 +66,12 @@ public class GraphicOpening extends JPanel {
         g2.drawString("4", 325, 125);
         g2.drawString("5", 425, 125);
         g2.drawString("6", 525, 125);
+    }
+
+    /**
+     * Calls the super repaint method.
+     */
+    public void repaint() {
+        super.repaint();
     }
 }

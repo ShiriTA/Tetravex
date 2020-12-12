@@ -269,7 +269,6 @@ public class Game {
         }
 
         srcBoard.setBrick(null, fromI, fromJ);
-        System.out.println(fromI);
         if (ableToMove(brick, toI, toJ)) {
             destBoard.setBrick(brick, toI, toJ);
             return true;
