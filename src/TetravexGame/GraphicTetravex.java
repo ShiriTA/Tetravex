@@ -4,6 +4,7 @@ import TetravexGame.Board.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class GraphicTetravex extends JPanel {
 
@@ -92,7 +93,6 @@ public class GraphicTetravex extends JPanel {
 
         if (win) {
             win(g);
-
         }
     }
 
@@ -114,10 +114,13 @@ public class GraphicTetravex extends JPanel {
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
+
         g2.setColor(new Color(231, 138, 176));
         g2.fill3DRect(800, 250, 200, 200, true);
         g2.setColor(Color.white);
-        g2.drawString("YOU WIN!!!", 870, 350);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 40));
+        g2.drawString("YOU", 840, 340);
+        g2.drawString("WIN!!!", 840, 390);
     }
 
     /**
@@ -164,7 +167,8 @@ public class GraphicTetravex extends JPanel {
                     g2.setColor(chooseColor(board.getBrick(i, j).getUp()));
                     g2.fillPolygon(xPoints1, yPoints1, 3);
                     g2.setColor(new Color(46, 46, 46));
-                    g2.drawString(Integer.toString(board.getBrick(i, j).getUp()), middleX - 2, ((middleY + firstY) / 2) + 5);
+                    g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+                    g2.drawString(Integer.toString(board.getBrick(i, j).getUp()), middleX - 7, ((middleY + firstY) / 2) + 5);
 
                     firstX = xLocOnBoard + HUNDRED + (j * HUNDRED);
                     firstY = HUNDRED + (i * HUNDRED);
@@ -178,7 +182,9 @@ public class GraphicTetravex extends JPanel {
                     g2.setColor(chooseColor(board.getBrick(i, j).getRight()));
                     g2.fillPolygon(xPoints2, yPoints2, 3);
                     g2.setColor(new Color(46, 46, 46));
-                    g2.drawString(Integer.toString(board.getBrick(i, j).getRight()), (middleX + firstX) / 2, middleY + 2);
+
+                    g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+                    g2.drawString(Integer.toString(board.getBrick(i, j).getRight()), (middleX + firstX) / 2, middleY + 5);
 
                     firstX = xLocOnBoard + HUNDRED + (j * HUNDRED);
                     firstY = TWOHUNDRED + (i * HUNDRED);
@@ -192,7 +198,8 @@ public class GraphicTetravex extends JPanel {
                     g2.setColor(chooseColor(board.getBrick(i, j).getDown()));
                     g2.fillPolygon(xPoints3, yPoints3, 3);
                     g2.setColor(new Color(46, 46, 46));
-                    g2.drawString(Integer.toString(board.getBrick(i, j).getDown()), middleX - 2, ((middleY + firstY) / 2) + 5);
+                    g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+                    g2.drawString(Integer.toString(board.getBrick(i, j).getDown()), middleX - 7, ((middleY + firstY) / 2) + 15);
 
                     firstX = xLocOnBoard + (j * HUNDRED);
                     firstY = TWOHUNDRED + (i * HUNDRED);
@@ -206,7 +213,9 @@ public class GraphicTetravex extends JPanel {
                     g2.setColor(chooseColor(board.getBrick(i, j).getLeft()));
                     g2.fillPolygon(xPoints4, yPoints4, 3);
                     g2.setColor(new Color(46, 46, 46));
-                    g2.drawString(Integer.toString(board.getBrick(i, j).getLeft()), ((middleX + firstX) / 2) - 5, middleY + 2);
+
+                    g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+                    g2.drawString(Integer.toString(board.getBrick(i, j).getLeft()), ((middleX + firstX) / 2) - 12, middleY + 5);
 
                 }
             }
@@ -266,7 +275,8 @@ public class GraphicTetravex extends JPanel {
         g2.setColor(chooseColor(currBrick.getUp()));
         g2.fillPolygon(xPoints1, yPoints1, 3);
         g2.setColor(new Color(46, 46, 46));
-        g2.drawString(Integer.toString(currBrick.getUp()), middleX - 2, ((middleY + firstY) / 2) + 5);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        g2.drawString(Integer.toString(currBrick.getUp()), middleX - 7, ((middleY + firstY) / 2) + 5);
 
         firstX = this.currX + HUNDRED;
         firstY = this.currY;
@@ -280,7 +290,8 @@ public class GraphicTetravex extends JPanel {
         g2.setColor(chooseColor(currBrick.getRight()));
         g2.fillPolygon(xPoints2, yPoints2, 3);
         g2.setColor(new Color(46, 46, 46));
-        g2.drawString(Integer.toString(currBrick.getRight()), (middleX + firstX) / 2, middleY + 2);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        g2.drawString(Integer.toString(currBrick.getRight()), (middleX + firstX) / 2, middleY + 5);
 
         firstX = this.currX + HUNDRED;
         firstY = this.currY + HUNDRED;
@@ -294,7 +305,8 @@ public class GraphicTetravex extends JPanel {
         g2.setColor(chooseColor(currBrick.getDown()));
         g2.fillPolygon(xPoints3, yPoints3, 3);
         g2.setColor(new Color(46, 46, 46));
-        g2.drawString(Integer.toString(currBrick.getDown()), middleX - 2, ((middleY + firstY) / 2) + 5);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        g2.drawString(Integer.toString(currBrick.getDown()), middleX - 7, ((middleY + firstY) / 2) + 15);
 
         firstX = this.currX;
         firstY = this.currY + HUNDRED;
@@ -308,7 +320,8 @@ public class GraphicTetravex extends JPanel {
         g2.setColor(chooseColor(currBrick.getLeft()));
         g2.fillPolygon(xPoints4, yPoints4, 3);
         g2.setColor(new Color(46, 46, 46));
-        g2.drawString(Integer.toString(currBrick.getLeft()), ((middleX + firstX) / 2) - 5, middleY + 2);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        g2.drawString(Integer.toString(currBrick.getLeft()), ((middleX + firstX) / 2) - 12, middleY + 5);
 
 
     }
